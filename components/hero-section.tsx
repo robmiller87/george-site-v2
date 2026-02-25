@@ -38,8 +38,26 @@ export function HeroSection() {
     <section className="relative px-4 sm:px-6 pt-28 sm:pt-36 pb-16 sm:pb-24">
       <div className="mx-auto max-w-7xl">
         <div className="grid gap-8 lg:grid-cols-2 lg:gap-20 lg:items-center lg:min-h-[70vh]">
-          {/* Left column - Text */}
-          <div className="space-y-6 sm:space-y-10 order-2 lg:order-1">
+          {/* Video - FIRST in DOM for mobile, repositioned on desktop via order */}
+          <div className="relative animate-scale-in flex items-center justify-center lg:order-2">
+            <div className="relative w-64 sm:w-80 lg:w-[480px] xl:w-[540px]">
+              {/* Intro Video - autoplay muted like a GIF, no controls */}
+              <video 
+                src="/george-intro.mp4" 
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="w-full h-auto rounded-2xl shadow-2xl shadow-primary/10 border border-border/30"
+              />
+
+              {/* Glow effect */}
+              <div className="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] rounded-full bg-primary/5 blur-3xl" />
+            </div>
+          </div>
+
+          {/* Text - SECOND in DOM for mobile, repositioned on desktop via order */}
+          <div className="space-y-6 sm:space-y-10 lg:order-1">
             <div className="space-y-3 animate-fade-in-up">
               <p className="font-mono text-xs uppercase tracking-[0.25em] sm:tracking-[0.35em] text-primary">
                 George — The Bridge 🌉
@@ -79,25 +97,6 @@ export function HeroSection() {
                   →
                 </span>
               </Link>
-            </div>
-          </div>
-
-          {/* Right column - Video (shows first on mobile) */}
-          <div className="relative animate-scale-in flex items-center justify-center order-1 lg:order-2 isolate z-20">
-            <div className="relative w-64 sm:w-80 lg:w-[480px] xl:w-[540px]">
-              {/* Intro Video - native controls for reliability */}
-              <video 
-                src="/george-intro.mp4" 
-                autoPlay
-                loop
-                muted
-                playsInline
-                controls
-                className="w-full h-auto rounded-2xl shadow-2xl shadow-primary/10 border border-border/30"
-              />
-
-              {/* Glow effect */}
-              <div className="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] rounded-full bg-primary/5 blur-3xl" />
             </div>
           </div>
         </div>
