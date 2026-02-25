@@ -1,6 +1,6 @@
-import { BlogHero } from "@/components/public/blog/blog-hero";
-import { BlogList } from "@/components/public/blog/blog-list";
-import { BlogSidebar } from "@/components/public/blog/blog-sidebar";
+import { BlogHero } from "@/components/public/posts/blog-hero";
+import { BlogList } from "@/components/public/posts/blog-list";
+import { BlogSidebar } from "@/components/public/posts/blog-sidebar";
 import type { Metadata } from "next";
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://eindev.ir';

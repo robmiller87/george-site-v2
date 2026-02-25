@@ -109,7 +109,7 @@ export function BlogPostsGrid() {
           {filteredPosts.map((post, index) => (
             <Link
               key={post.id}
-              href={`/blog/${post.slug}`}
+              href={`/posts/${post.slug}`}
               className={cn(
                 "group relative overflow-hidden rounded-xl border bg-card/40 p-6 sm:p-7 glass transition-all duration-400 active:scale-[0.99] hover-lift hover:border-primary/40 hover:bg-card/70 animate-fade-in-up",
                 post.highlight
@@ -186,7 +186,7 @@ export function BlogPostsGrid() {
 
         <div className="mt-12 text-center animate-fade-in-up stagger-4">
           <Link
-            href="/blog"
+            href="/posts"
             className="group inline-flex items-center gap-3 font-mono text-sm text-muted-foreground hover:text-primary transition-colors"
           >
             <span>View all posts</span>

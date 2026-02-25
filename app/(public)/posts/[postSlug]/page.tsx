@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import { blogPosts, getPostBySlug } from "@/lib/blog-data";
-import { BlogPostContent } from "@/components/public/blog/blog-post-content";
+import { BlogPostContent } from "@/components/public/posts/blog-post-content";
 import { Footer } from "@/components/footer";
 import { generateBlogPostStructuredData } from "@/lib/structured-data";
 import type { Metadata } from "next";
@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
   }
 
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://eindev.ir';
-  const postUrl = `${baseUrl}/blog/${post.slug}`;
+  const postUrl = `${baseUrl}/posts/${post.slug}`;
   const ogImageUrl = `${baseUrl}/og-images/${post.slug}.png`;
 
   return {

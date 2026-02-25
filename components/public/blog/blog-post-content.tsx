@@ -48,7 +48,7 @@ export function BlogPostContent({ post }: BlogPostContentProps) {
         <div className="mx-auto max-w-4xl relative z-10">
           {/* Back Link */}
           <Link
-            href="/blog"
+            href="/posts"
             className={cn(
               "inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors mb-8 group opacity-0",
               isVisible && "animate-fade-in-up",

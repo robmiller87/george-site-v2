@@ -21,7 +21,7 @@ export function generateBlogPostStructuredData(post: BlogPost, url: string) {
     },
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': `${url}/blog/${post.slug}`,
+      '@id': `${url}/posts/${post.slug}`,
     },
     articleSection: post.category,
     keywords: post.tags.join(', '),

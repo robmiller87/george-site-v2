@@ -10,7 +10,7 @@ import Link from "next/link"
 
 const navItems = [
   { label: "Terminal", href: "/" },
-  { label: "Blog", href: "/blog" },
+  { label: "Blog", href: "/posts" },
   { label: "About", href: "/about" },
 ]
 
