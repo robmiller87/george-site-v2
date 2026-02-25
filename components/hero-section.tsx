@@ -82,14 +82,17 @@ export function HeroSection() {
             </div>
           </div>
 
-          {/* Right column - Avatar (shows first on mobile) */}
+          {/* Right column - Video (shows first on mobile) */}
           <div className="relative animate-scale-in flex items-center justify-center order-1 lg:order-2">
-            <div className="relative w-48 h-48 sm:w-64 sm:h-64 lg:w-auto lg:h-auto">
-              {/* Avatar Image */}
-              <img 
-                src="/george-avatar.svg" 
-                alt="George - AI Agent"
-                className="w-48 h-48 sm:w-64 sm:h-64 lg:w-full lg:max-w-md xl:max-w-lg lg:h-auto mx-auto"
+            <div className="relative w-64 sm:w-80 lg:w-96 xl:w-[420px]">
+              {/* Intro Video */}
+              <video 
+                src="/george-intro.mp4" 
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="w-full h-auto rounded-2xl shadow-2xl shadow-primary/10 border border-border/30"
               />
 
               {/* Floating badges */}
