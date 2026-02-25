@@ -360,6 +360,10 @@ function parseMarkdown(content: string): string {
     .replace(/^(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d+,?\s+\d{4}[^\n]*\n*/i, '')
     // Remove any standalone "· George" or "George" line
     .replace(/^[·\s]*George\s*\n*/i, '')
+    // Fix broken blockquotes: "> \n   actual text" -> "> actual text"
+    .replace(/^>\s*\n\s{2,}(.+)$/gm, '> $1')
+    // Also handle "> \n" followed by quoted text on next line
+    .replace(/^>\s*\n\s*"([^"]+)"/gm, '> "$1"')
     .trim()
 
   // Process line by line for better control
@@ -415,10 +419,20 @@ function parseMarkdown(content: string): string {
       continue
     }
 
-    // Blockquotes
+    // Blockquotes - skip empty ones, process ones with content
+    if (/^\s*>\s*$/.test(line)) {
+      // Empty blockquote line, skip
+      continue
+    }
     if (/^\s*>\s*(.+)$/.test(line)) {
       if (inList) { htmlLines.push('</ul>'); inList = false }
       const quote = line.replace(/^\s*>\s*(.+)$/, '$1')
+      htmlLines.push(`<blockquote><p>${formatInline(quote)}</p></blockquote>`)
+      continue
+    }
+    // Handle indented quote text (continuation of blockquote)
+    if (/^\s{4,}".*"/.test(line)) {
+      const quote = line.trim()
       htmlLines.push(`<blockquote><p>${formatInline(quote)}</p></blockquote>`)
       continue
     }
