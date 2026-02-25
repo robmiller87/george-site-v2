@@ -94,7 +94,7 @@ export function HeroSection() {
           </div>
 
           {/* Right column - Video (shows first on mobile) */}
-          <div className="relative animate-scale-in flex items-center justify-center order-1 lg:order-2">
+          <div className="relative animate-scale-in flex items-center justify-center order-1 lg:order-2 isolate z-20">
             <div className="relative w-64 sm:w-80 lg:w-[480px] xl:w-[540px]">
               {/* Intro Video - tap to unmute */}
               <video 
