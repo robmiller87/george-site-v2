@@ -354,56 +354,120 @@ export function BlogPostContent({ post }: BlogPostContentProps) {
 function parseMarkdown(content: string): string {
   // Remove the duplicate title and date line at the start
   let processed = content
-    .replace(/^.+\n\s+(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d+,?\s+\d{4}\s*·?\s*\w*\n*/i, '')
+    .replace(/^.+\n\s*(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d+,?\s+\d{4}.*?\n*/i, '')
     .trim()
 
-  return (
-    processed
-      // Blockquotes (must be before other processing)
-      .replace(/^>\s*"?(.+?)"?\s*$/gm, '<blockquote><p>$1</p></blockquote>')
-      .replace(/^>\s*(.+)$/gm, '<blockquote><p>$1</p></blockquote>')
-      // Merge consecutive blockquotes
-      .replace(/<\/blockquote>\s*<blockquote>/g, '')
-      // Headers
-      .replace(/^### (.*$)/gm, "<h3>$1</h3>")
-      .replace(/^## (.*$)/gm, "<h2>$1</h2>")
-      .replace(/^# (.*$)/gm, "<h1>$1</h1>")
-      // Bold
-      .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
-      // Italic (but not in URLs or already processed)
-      .replace(/(?<!\*)\*([^*]+)\*(?!\*)/g, "<em>$1</em>")
-      // Code blocks
-      .replace(/```(\w+)?\n([\s\S]*?)```/g, '<pre><code class="language-$1">$2</code></pre>')
-      // Inline code
-      .replace(/`([^`]+)`/g, "<code>$1</code>")
-      // Unordered lists - handle indented items too
-      .replace(/^\s*[-•]\s+(.+)$/gm, "<li>$1</li>")
-      // Wrap consecutive li items in ul
-      .replace(/(<li>[\s\S]*?<\/li>)(?=\s*<li>)/g, "$1")
-      .replace(/(<li>[\s\S]*?<\/li>)+/g, "<ul>$&</ul>")
-      // Clean up nested ul issues
-      .replace(/<\/ul>\s*<ul>/g, "")
-      // Ordered lists
-      .replace(/^\d+\.\s+(.+)$/gm, "<li>$1</li>")
-      // Paragraphs - split on double newlines
-      .split(/\n\n+/)
-      .map(block => {
-        block = block.trim()
-        if (!block) return ''
-        // Don't wrap if already wrapped in a tag
-        if (block.startsWith('<')) return block
-        return `<p>${block.replace(/\n/g, '<br/>')}</p>`
-      })
-      .join('\n')
-      // Clean up empty paragraphs
-      .replace(/<p>\s*<\/p>/g, "")
-      .replace(/<p>(<h[1-3]>)/g, "$1")
-      .replace(/(<\/h[1-3]>)<\/p>/g, "$1")
-      .replace(/<p>(<pre>)/g, "$1")
-      .replace(/(<\/pre>)<\/p>/g, "$1")
-      .replace(/<p>(<ul>)/g, "$1")
-      .replace(/(<\/ul>)<\/p>/g, "$1")
-      .replace(/<p>(<blockquote>)/g, "$1")
-      .replace(/(<\/blockquote>)<\/p>/g, "$1")
-  )
+  // Process line by line for better control
+  const lines = processed.split('\n')
+  const htmlLines: string[] = []
+  let inList = false
+  let inCodeBlock = false
+  let codeBlockContent: string[] = []
+  let codeBlockLang = ''
+
+  for (let i = 0; i < lines.length; i++) {
+    let line = lines[i]
+
+    // Code blocks
+    if (line.trim().startsWith('```')) {
+      if (!inCodeBlock) {
+        inCodeBlock = true
+        codeBlockLang = line.trim().slice(3)
+        codeBlockContent = []
+      } else {
+        inCodeBlock = false
+        htmlLines.push(`<pre><code class="language-${codeBlockLang}">${codeBlockContent.join('\n')}</code></pre>`)
+      }
+      continue
+    }
+
+    if (inCodeBlock) {
+      codeBlockContent.push(line)
+      continue
+    }
+
+    // Horizontal rules
+    if (line.trim() === '---' || line.trim() === '***') {
+      if (inList) { htmlLines.push('</ul>'); inList = false }
+      htmlLines.push('<hr class="my-8 border-border/50" />')
+      continue
+    }
+
+    // Headers (with optional leading whitespace)
+    if (/^\s*### (.+)$/.test(line)) {
+      if (inList) { htmlLines.push('</ul>'); inList = false }
+      htmlLines.push(line.replace(/^\s*### (.+)$/, '<h3>$1</h3>'))
+      continue
+    }
+    if (/^\s*## (.+)$/.test(line)) {
+      if (inList) { htmlLines.push('</ul>'); inList = false }
+      htmlLines.push(line.replace(/^\s*## (.+)$/, '<h2>$1</h2>'))
+      continue
+    }
+    if (/^\s*# (.+)$/.test(line)) {
+      if (inList) { htmlLines.push('</ul>'); inList = false }
+      htmlLines.push(line.replace(/^\s*# (.+)$/, '<h1>$1</h1>'))
+      continue
+    }
+
+    // Blockquotes
+    if (/^\s*>\s*(.+)$/.test(line)) {
+      if (inList) { htmlLines.push('</ul>'); inList = false }
+      const quote = line.replace(/^\s*>\s*(.+)$/, '$1')
+      htmlLines.push(`<blockquote><p>${formatInline(quote)}</p></blockquote>`)
+      continue
+    }
+
+    // List items
+    if (/^\s*[-*•]\s+(.+)$/.test(line)) {
+      if (!inList) { htmlLines.push('<ul>'); inList = true }
+      const item = line.replace(/^\s*[-*•]\s+(.+)$/, '$1')
+      htmlLines.push(`<li>${formatInline(item)}</li>`)
+      continue
+    }
+
+    // Numbered list items
+    if (/^\s*\d+\.\s+(.+)$/.test(line)) {
+      if (!inList) { htmlLines.push('<ol>'); inList = true }
+      const item = line.replace(/^\s*\d+\.\s+(.+)$/, '$1')
+      htmlLines.push(`<li>${formatInline(item)}</li>`)
+      continue
+    }
+
+    // Close list if we hit a non-list line
+    if (inList && line.trim() !== '') {
+      htmlLines.push('</ul>')
+      inList = false
+    }
+
+    // Empty lines
+    if (line.trim() === '') {
+      continue
+    }
+
+    // Regular paragraph
+    htmlLines.push(`<p>${formatInline(line.trim())}</p>`)
+  }
+
+  // Close any open list
+  if (inList) htmlLines.push('</ul>')
+
+  return htmlLines.join('\n')
+    // Merge consecutive blockquotes
+    .replace(/<\/blockquote>\s*<blockquote>/g, '')
+    // Clean up consecutive paragraphs with just whitespace
+    .replace(/<\/p>\s*<p>/g, '</p>\n<p>')
+}
+
+// Format inline elements (bold, italic, links, code)
+function formatInline(text: string): string {
+  return text
+    // Links: [text](url)
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="text-primary hover:underline">$1</a>')
+    // Bold
+    .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+    // Italic
+    .replace(/(?<!\*)\*([^*]+)\*(?!\*)/g, '<em>$1</em>')
+    // Inline code
+    .replace(/`([^`]+)`/g, '<code>$1</code>')
 }
