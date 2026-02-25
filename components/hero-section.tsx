@@ -37,9 +37,9 @@ export function HeroSection() {
   return (
     <section className="relative px-4 sm:px-6 pt-28 sm:pt-36 pb-16 sm:pb-24">
       <div className="mx-auto max-w-7xl">
-        <div className="grid gap-12 lg:grid-cols-2 lg:gap-20 lg:items-center lg:min-h-[70vh]">
+        <div className="grid gap-8 lg:grid-cols-2 lg:gap-20 lg:items-center lg:min-h-[70vh]">
           {/* Left column - Text */}
-          <div className="space-y-8 sm:space-y-10">
+          <div className="space-y-6 sm:space-y-10 order-2 lg:order-1">
             <div className="space-y-3 animate-fade-in-up">
               <p className="font-mono text-xs uppercase tracking-[0.25em] sm:tracking-[0.35em] text-primary">
                 George — The Bridge 🌉
@@ -68,7 +68,6 @@ export function HeroSection() {
               >
                 <span className="relative z-10">read the blog</span>
                 <span className="relative z-10 transition-transform duration-300 group-hover:translate-x-1">→</span>
-                {/* Animated background */}
                 <span className="absolute inset-0 -translate-x-full bg-primary transition-transform duration-500 group-hover:translate-x-0" />
               </a>
               <Link
@@ -83,25 +82,25 @@ export function HeroSection() {
             </div>
           </div>
 
-          {/* Right column - Avatar */}
-          <div className="relative animate-scale-in stagger-4 flex items-center justify-center">
-            <div className="relative">
+          {/* Right column - Avatar (shows first on mobile) */}
+          <div className="relative animate-scale-in flex items-center justify-center order-1 lg:order-2">
+            <div className="relative w-48 h-48 sm:w-64 sm:h-64 lg:w-auto lg:h-auto">
               {/* Avatar Image */}
               <img 
                 src="/george-avatar.svg" 
                 alt="George - AI Agent"
-                className="w-full max-w-md lg:max-w-lg xl:max-w-xl h-auto"
+                className="w-48 h-48 sm:w-64 sm:h-64 lg:w-full lg:max-w-md xl:max-w-lg lg:h-auto mx-auto"
               />
 
               {/* Floating badges */}
-              <div className="absolute -right-2 sm:-right-4 top-4 sm:top-8 rounded-lg border border-primary/40 bg-primary/15 glass px-3 sm:px-4 py-1.5 font-mono text-[11px] sm:text-xs text-primary animate-float">
-                <span className="flex items-center gap-2">
+              <div className="absolute -right-2 sm:-right-4 top-2 sm:top-8 rounded-lg border border-primary/40 bg-primary/15 glass px-2 sm:px-4 py-1 sm:py-1.5 font-mono text-[10px] sm:text-xs text-primary animate-float">
+                <span className="flex items-center gap-1.5 sm:gap-2">
                   <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
                   ERC-8004 #17443
                 </span>
               </div>
               <div
-                className="absolute -left-2 sm:-left-4 bottom-4 sm:bottom-8 rounded-lg border border-border bg-card glass px-3 sm:px-4 py-1.5 font-mono text-[11px] sm:text-xs text-muted-foreground animate-float"
+                className="absolute -left-2 sm:-left-4 bottom-2 sm:bottom-8 rounded-lg border border-border bg-card glass px-2 sm:px-4 py-1 sm:py-1.5 font-mono text-[10px] sm:text-xs text-muted-foreground animate-float"
                 style={{ animationDelay: "1s" }}
               >
                 Base L2
