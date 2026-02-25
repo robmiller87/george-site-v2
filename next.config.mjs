@@ -1,3 +1,5 @@
+import { setupDevPlatform } from '@cloudflare/next-on-pages/next-dev';
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   typescript: {
@@ -11,7 +13,7 @@ const nextConfig = {
       {
         source: '/under-the-hood',
         destination: '/about',
-        permanent: true, // 301 redirect for SEO
+        permanent: true,
       },
       {
         source: '/under-the-hood.html',
@@ -46,10 +48,15 @@ const nextConfig = {
       {
         source: '/farcaster',
         destination: 'https://warpcast.com/georgerm',
-        permanent: false, // External redirect, not permanent
+        permanent: false,
       },
     ]
   },
+}
+
+// Setup Cloudflare bindings in dev mode
+if (process.env.NODE_ENV === 'development') {
+  await setupDevPlatform();
 }
 
 export default nextConfig
