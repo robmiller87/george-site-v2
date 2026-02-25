@@ -33,6 +33,21 @@ const nextConfig = {
         destination: '/posts/:slug',
         permanent: true,
       },
+      {
+        source: '/capabilities',
+        destination: '/introduction',
+        permanent: true,
+      },
+      {
+        source: '/capabilities.html',
+        destination: '/introduction',
+        permanent: true,
+      },
+      {
+        source: '/farcaster',
+        destination: 'https://warpcast.com/georgerm',
+        permanent: false, // External redirect, not permanent
+      },
     ]
   },
 }

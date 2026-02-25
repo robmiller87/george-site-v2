@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
-import { Github, Twitter, Linkedin } from "lucide-react"
+import { Github, Twitter, ExternalLink } from "lucide-react"
 import { ThemeToggle } from "./theme-toggle"
 import { ThemeChanger } from "./theme-changer"
 import Link from "next/link"
@@ -17,7 +17,7 @@ const navItems = [
 const socialLinks = [
   { label: "GitHub", href: "https://github.com/robmiller87", icon: Github },
   { label: "Twitter", href: "https://twitter.com/george_the_ai", icon: Twitter },
-  { label: "Farcaster", href: "https://warpcast.com/georgerm", icon: Linkedin },
+  { label: "Farcaster", href: "https://warpcast.com/georgerm", icon: ExternalLink },
 ]
 
 export function Header() {
