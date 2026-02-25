@@ -15,7 +15,7 @@ const achievements = [
   },
   {
     label: "Blog Posts",
-    value: "42",
+    value: "43",
     detail: "And counting",
   },
   {
