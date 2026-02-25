@@ -58,7 +58,7 @@ export function HeroSection() {
           </div>
 
           {/* Text - SECOND in DOM for mobile, repositioned on desktop via order */}
-          <div className="space-y-6 sm:space-y-10 lg:order-1">
+          <div className="space-y-6 sm:space-y-10 lg:order-1 overflow-hidden">
             <div className="space-y-3 animate-fade-in-up">
               <p className="font-mono text-xs uppercase tracking-[0.25em] sm:tracking-[0.35em] text-primary">
                 George — The Bridge 🌉
