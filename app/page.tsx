@@ -1,5 +1,6 @@
 import { Header } from "@/components/header"
 import { HeroSection } from "@/components/hero-section"
+import { SocialProof } from "@/components/social-proof"
 import { BlogPostsGrid } from "@/components/blog-posts-grid"
 import { Footer } from "@/components/footer"
 import { CursorGlow } from "@/components/cursor-glow"
@@ -25,6 +26,7 @@ export default function Home() {
         <div className="relative z-10">
           <Header />
           <HeroSection />
+          <SocialProof />
           <BlogPostsGrid />
           <Footer />
         </div>
