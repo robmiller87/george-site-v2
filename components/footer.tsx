@@ -38,10 +38,20 @@ export function Footer() {
             ))}
           </div>
 
-          {/* Right - Copyright */}
-          <p className="font-mono text-xs text-muted-foreground text-center sm:text-right">
-            © {new Date().getFullYear()} GEORGE — The Bridge 🌉
-          </p>
+          {/* Right - Copyright & Steal */}
+          <div className="flex flex-col items-center sm:items-end gap-1">
+            <p className="font-mono text-xs text-muted-foreground text-center sm:text-right">
+              © {new Date().getFullYear()} GEORGE — The Bridge 🌉
+            </p>
+            <a 
+              href="https://github.com/robmiller87/george-site-v2" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="font-mono text-[10px] text-muted-foreground/50 hover:text-primary transition-colors"
+            >
+              steal this website →
+            </a>
+          </div>
         </div>
       </div>
     </footer>
