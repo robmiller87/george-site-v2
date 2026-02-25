@@ -156,18 +156,18 @@ export function BlogPostContent({ post }: BlogPostContentProps) {
             <article
               ref={contentRef}
               className={cn(
-                "prose prose-invert prose-lg max-w-none opacity-0",
-                "prose-headings:font-semibold prose-headings:tracking-tight",
-                "prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-4 prose-h2:text-gradient",
+                "prose dark:prose-invert prose-lg max-w-none opacity-0",
+                "prose-headings:font-semibold prose-headings:tracking-tight prose-headings:text-foreground",
+                "prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-4",
                 "prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3",
-                "prose-p:text-muted-foreground prose-p:leading-relaxed",
+                "prose-p:text-muted-foreground prose-p:leading-relaxed prose-p:my-4",
                 "prose-a:text-primary prose-a:no-underline hover:prose-a:underline",
                 "prose-strong:text-foreground prose-strong:font-semibold",
                 "prose-code:text-primary prose-code:bg-secondary/60 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:font-mono prose-code:text-sm prose-code:before:content-none prose-code:after:content-none",
-                "prose-pre:bg-card/80 prose-pre:border prose-pre:border-border/50 prose-pre:rounded-xl prose-pre:p-4 prose-pre:overflow-x-auto",
-                "prose-ul:text-muted-foreground prose-ol:text-muted-foreground",
-                "prose-li:marker:text-primary",
-                "prose-blockquote:border-l-primary prose-blockquote:text-muted-foreground prose-blockquote:italic",
+                "prose-pre:bg-card prose-pre:border prose-pre:border-border/50 prose-pre:rounded-xl prose-pre:p-4 prose-pre:overflow-x-auto prose-pre:my-6",
+                "prose-ul:text-muted-foreground prose-ol:text-muted-foreground prose-ul:my-4 prose-ol:my-4",
+                "prose-li:marker:text-primary prose-li:my-1",
+                "prose-blockquote:border-l-4 prose-blockquote:border-l-primary prose-blockquote:pl-4 prose-blockquote:py-1 prose-blockquote:my-6 prose-blockquote:text-muted-foreground prose-blockquote:italic prose-blockquote:bg-muted/30 prose-blockquote:rounded-r-lg",
                 isVisible && "animate-fade-in-up",
               )}
               style={{ animationDelay: "350ms" }}
@@ -352,36 +352,58 @@ export function BlogPostContent({ post }: BlogPostContentProps) {
 
 // Simple markdown parser for rendering content
 function parseMarkdown(content: string): string {
+  // Remove the duplicate title and date line at the start
+  let processed = content
+    .replace(/^.+\n\s+(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d+,?\s+\d{4}\s*·?\s*\w*\n*/i, '')
+    .trim()
+
   return (
-    content
+    processed
+      // Blockquotes (must be before other processing)
+      .replace(/^>\s*"?(.+?)"?\s*$/gm, '<blockquote><p>$1</p></blockquote>')
+      .replace(/^>\s*(.+)$/gm, '<blockquote><p>$1</p></blockquote>')
+      // Merge consecutive blockquotes
+      .replace(/<\/blockquote>\s*<blockquote>/g, '')
       // Headers
       .replace(/^### (.*$)/gm, "<h3>$1</h3>")
       .replace(/^## (.*$)/gm, "<h2>$1</h2>")
       .replace(/^# (.*$)/gm, "<h1>$1</h1>")
       // Bold
       .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
-      // Italic
-      .replace(/\*(.*?)\*/g, "<em>$1</em>")
+      // Italic (but not in URLs or already processed)
+      .replace(/(?<!\*)\*([^*]+)\*(?!\*)/g, "<em>$1</em>")
       // Code blocks
       .replace(/```(\w+)?\n([\s\S]*?)```/g, '<pre><code class="language-$1">$2</code></pre>')
       // Inline code
       .replace(/`([^`]+)`/g, "<code>$1</code>")
-      // Unordered lists
-      .replace(/^- (.*$)/gm, "<li>$1</li>")
-      .replace(/(<li>.*<\/li>)\n(?=<li>)/g, "$1")
-      .replace(/(<li>.*<\/li>)(?:\n|$)/g, "<ul>$1</ul>")
+      // Unordered lists - handle indented items too
+      .replace(/^\s*[-•]\s+(.+)$/gm, "<li>$1</li>")
+      // Wrap consecutive li items in ul
+      .replace(/(<li>[\s\S]*?<\/li>)(?=\s*<li>)/g, "$1")
+      .replace(/(<li>[\s\S]*?<\/li>)+/g, "<ul>$&</ul>")
+      // Clean up nested ul issues
+      .replace(/<\/ul>\s*<ul>/g, "")
       // Ordered lists
-      .replace(/^\d+\. (.*$)/gm, "<li>$1</li>")
-      // Paragraphs
-      .replace(/\n\n(?!<)/g, "</p><p>")
-      .replace(/^(?!<)(.+)$/gm, "<p>$1</p>")
+      .replace(/^\d+\.\s+(.+)$/gm, "<li>$1</li>")
+      // Paragraphs - split on double newlines
+      .split(/\n\n+/)
+      .map(block => {
+        block = block.trim()
+        if (!block) return ''
+        // Don't wrap if already wrapped in a tag
+        if (block.startsWith('<')) return block
+        return `<p>${block.replace(/\n/g, '<br/>')}</p>`
+      })
+      .join('\n')
       // Clean up empty paragraphs
-      .replace(/<p><\/p>/g, "")
+      .replace(/<p>\s*<\/p>/g, "")
       .replace(/<p>(<h[1-3]>)/g, "$1")
       .replace(/(<\/h[1-3]>)<\/p>/g, "$1")
       .replace(/<p>(<pre>)/g, "$1")
       .replace(/(<\/pre>)<\/p>/g, "$1")
       .replace(/<p>(<ul>)/g, "$1")
       .replace(/(<\/ul>)<\/p>/g, "$1")
+      .replace(/<p>(<blockquote>)/g, "$1")
+      .replace(/(<\/blockquote>)<\/p>/g, "$1")
   )
 }
