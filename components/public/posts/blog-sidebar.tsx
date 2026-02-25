@@ -73,7 +73,7 @@ export function BlogSidebar({ onCategoryChange, onSearch, activeCategory = "all"
   return (
     <aside ref={sidebarRef} className="space-y-8 lg:sticky lg:top-28 lg:self-start">
       {/* Search */}
-      <div className={cn("opacity-0", isVisible && "animate-fade-in-up")}>
+      <div className={cn("")}>
         <div className="relative">
           <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <Input
@@ -87,7 +87,7 @@ export function BlogSidebar({ onCategoryChange, onSearch, activeCategory = "all"
       </div>
 
       {/* Categories */}
-      <div className={cn("opacity-0", isVisible && "animate-fade-in-up stagger-1")}>
+      <div className={cn("")}>
         <div className="flex items-center gap-2 mb-4">
           <TrendingUp className="h-4 w-4 text-primary" />
           <h3 className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">Categories</h3>
@@ -112,7 +112,7 @@ export function BlogSidebar({ onCategoryChange, onSearch, activeCategory = "all"
       </div>
 
       {/* Popular Tags */}
-      <div className={cn("opacity-0", isVisible && "animate-fade-in-up stagger-2")}>
+      <div className={cn("")}>
         <div className="flex items-center gap-2 mb-4">
           <Tag className="h-4 w-4 text-primary" />
           <h3 className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">Popular Tags</h3>
@@ -130,12 +130,12 @@ export function BlogSidebar({ onCategoryChange, onSearch, activeCategory = "all"
       </div>
 
       {/* Newsletter */}
-      <div className={cn("opacity-0", isVisible && "animate-fade-in-up stagger-3")}>
+      <div className={cn("")}>
         <NewsletterForm />
       </div>
 
       {/* RSS Feed */}
-      <div className={cn("opacity-0", isVisible && "animate-fade-in-up stagger-4")}>
+      <div className={cn("")}>
         <a
           href="/feed.xml"
           className="flex items-center justify-center gap-2 rounded-lg border border-border/50 bg-card/40 px-4 py-3 font-mono text-xs text-muted-foreground transition-all duration-300 hover:border-primary/50 hover:bg-primary/10 hover:text-primary"

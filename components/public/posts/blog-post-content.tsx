@@ -50,7 +50,7 @@ export function BlogPostContent({ post }: BlogPostContentProps) {
           <Link
             href="/posts"
             className={cn(
-              "inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors mb-8 group opacity-0",
+              "inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors mb-8 group ",
               isVisible && "animate-fade-in-up",
             )}
           >
@@ -60,7 +60,7 @@ export function BlogPostContent({ post }: BlogPostContentProps) {
 
           {/* Category & Meta */}
           <div
-            className={cn("flex flex-wrap items-center gap-3 mb-6 opacity-0", isVisible && "animate-fade-in-up")}
+            className={cn("flex flex-wrap items-center gap-3 mb-6 ")}
             style={{ animationDelay: "100ms" }}
           >
             <span className="rounded-lg border border-primary/50 bg-primary/10 px-3 py-1.5 font-mono text-xs text-primary uppercase tracking-wider">
@@ -76,7 +76,7 @@ export function BlogPostContent({ post }: BlogPostContentProps) {
           {/* Title */}
           <h1
             className={cn(
-              "text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-6 opacity-0",
+              "text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-6 ",
               isVisible && "animate-fade-in-up",
             )}
             style={{ animationDelay: "150ms" }}
@@ -87,7 +87,7 @@ export function BlogPostContent({ post }: BlogPostContentProps) {
           {/* Excerpt */}
           <p
             className={cn(
-              "text-lg sm:text-xl text-muted-foreground leading-relaxed mb-8 opacity-0",
+              "text-lg sm:text-xl text-muted-foreground leading-relaxed mb-8 ",
               isVisible && "animate-fade-in-up",
             )}
             style={{ animationDelay: "200ms" }}
@@ -98,7 +98,7 @@ export function BlogPostContent({ post }: BlogPostContentProps) {
           {/* Author & Meta Row */}
           <div
             className={cn(
-              "flex flex-wrap items-center justify-between gap-6 opacity-0",
+              "flex flex-wrap items-center justify-between gap-6 ",
               isVisible && "animate-fade-in-up",
             )}
             style={{ animationDelay: "250ms" }}
@@ -133,7 +133,7 @@ export function BlogPostContent({ post }: BlogPostContentProps) {
 
           {/* Tags */}
           <div
-            className={cn("flex flex-wrap gap-2 mt-6 opacity-0", isVisible && "animate-fade-in-up")}
+            className={cn("flex flex-wrap gap-2 mt-6 ")}
             style={{ animationDelay: "300ms" }}
           >
             {post.tags.map((tag) => (
@@ -156,7 +156,7 @@ export function BlogPostContent({ post }: BlogPostContentProps) {
             <article
               ref={contentRef}
               className={cn(
-                "prose dark:prose-invert prose-lg max-w-none opacity-0",
+                "prose dark:prose-invert prose-lg max-w-none ",
                 "prose-headings:font-semibold prose-headings:tracking-tight prose-headings:text-foreground",
                 "prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-4",
                 "prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3",
@@ -176,7 +176,7 @@ export function BlogPostContent({ post }: BlogPostContentProps) {
 
             {/* Sticky Share Sidebar */}
             <aside
-              className={cn("hidden lg:block opacity-0", isVisible && "animate-fade-in-up")}
+              className={cn("hidden lg:block ")}
               style={{ animationDelay: "400ms" }}
             >
               <div className="sticky top-32 flex flex-col gap-3">
@@ -228,7 +228,7 @@ export function BlogPostContent({ post }: BlogPostContentProps) {
           {/* Mobile Share Bar */}
           <div
             className={cn(
-              "lg:hidden flex items-center justify-center gap-4 mt-12 pt-8 border-t border-border/30 opacity-0",
+              "lg:hidden flex items-center justify-center gap-4 mt-12 pt-8 border-t border-border/30 ",
               isVisible && "animate-fade-in-up",
             )}
             style={{ animationDelay: "450ms" }}
@@ -291,7 +291,7 @@ export function BlogPostContent({ post }: BlogPostContentProps) {
                   key={relatedPost.id}
                   href={`/blog/${relatedPost.slug}`}
                   className={cn(
-                    "group relative overflow-hidden rounded-xl border border-border bg-card/40 glass p-5 transition-all duration-300 hover:border-primary/40 hover:bg-card/60 hover-lift opacity-0",
+                    "group relative overflow-hidden rounded-xl border border-border bg-card/40 glass p-5 transition-all duration-300 hover:border-primary/40 hover:bg-card/60 hover-lift ",
                     isVisible && "animate-fade-in-up",
                   )}
                   style={{ animationDelay: `${500 + index * 100}ms` }}
