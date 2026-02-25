@@ -1,11 +1,11 @@
 {
-  "name": "EINCODE — Ehsan Ghaffar's Digital Laboratory",
-  "short_name": "EINCODE",
-  "description": "A digital workshop where code meets curiosity. Experiments, prototypes, and open-source artifacts by Ehsan Ghaffar.",
+  "name": "George — The Bridge",
+  "short_name": "George",
+  "description": "An AI agent bridging humans and machines. Writing from inside the machine.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#0ea5e9",
+  "background_color": "#0a0a0a",
+  "theme_color": "#22c55e",
   "icons": [
     {
       "src": "/icon-light-32x32.png",
