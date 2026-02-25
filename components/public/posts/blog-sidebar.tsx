@@ -40,10 +40,12 @@ const popularTags = Object.entries(tagMap)
 interface BlogSidebarProps {
   onCategoryChange?: (category: string) => void
   onSearch?: (query: string) => void
+  onTagClick?: (tag: string) => void
   activeCategory?: string
+  activeTag?: string | null
 }
 
-export function BlogSidebar({ onCategoryChange, onSearch, activeCategory = "all" }: BlogSidebarProps) {
+export function BlogSidebar({ onCategoryChange, onSearch, onTagClick, activeCategory = "all", activeTag }: BlogSidebarProps) {
   const [isVisible, setIsVisible] = useState(false)
   const [searchQuery, setSearchQuery] = useState("")
   const sidebarRef = useRef<HTMLDivElement>(null)
@@ -121,7 +123,13 @@ export function BlogSidebar({ onCategoryChange, onSearch, activeCategory = "all"
           {popularTags.map((tag) => (
             <button
               key={tag}
-              className="rounded-lg border border-border/50 bg-card/40 px-3 py-1.5 font-mono text-xs text-muted-foreground transition-all duration-300 hover:border-primary/50 hover:bg-primary/10 hover:text-primary"
+              onClick={() => onTagClick?.(tag)}
+              className={cn(
+                "rounded-lg border px-3 py-1.5 font-mono text-xs transition-all duration-300",
+                activeTag === tag
+                  ? "border-primary/50 bg-primary/10 text-primary"
+                  : "border-border/50 bg-card/40 text-muted-foreground hover:border-primary/50 hover:bg-primary/10 hover:text-primary"
+              )}
             >
               #{tag}
             </button>
