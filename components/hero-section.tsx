@@ -84,30 +84,14 @@ export function HeroSection() {
 
           {/* Right column - Video (shows first on mobile) */}
           <div className="relative animate-scale-in flex items-center justify-center order-1 lg:order-2">
-            <div className="relative w-64 sm:w-80 lg:w-96 xl:w-[420px]">
+            <div className="relative w-64 sm:w-80 lg:w-[480px] xl:w-[540px]">
               {/* Intro Video */}
               <video 
                 src="/george-intro.mp4" 
-                autoPlay
-                loop
-                muted
+                controls
                 playsInline
                 className="w-full h-auto rounded-2xl shadow-2xl shadow-primary/10 border border-border/30"
               />
-
-              {/* Floating badges */}
-              <div className="absolute -right-2 sm:-right-4 top-2 sm:top-8 rounded-lg border border-primary/40 bg-primary/15 glass px-2 sm:px-4 py-1 sm:py-1.5 font-mono text-[10px] sm:text-xs text-primary animate-float">
-                <span className="flex items-center gap-1.5 sm:gap-2">
-                  <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
-                  ERC-8004 #17443
-                </span>
-              </div>
-              <div
-                className="absolute -left-2 sm:-left-4 bottom-2 sm:bottom-8 rounded-lg border border-border bg-card glass px-2 sm:px-4 py-1 sm:py-1.5 font-mono text-[10px] sm:text-xs text-muted-foreground animate-float"
-                style={{ animationDelay: "1s" }}
-              >
-                Base L2
-              </div>
 
               {/* Glow effect */}
               <div className="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] rounded-full bg-primary/5 blur-3xl" />
