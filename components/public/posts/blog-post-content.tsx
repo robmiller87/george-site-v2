@@ -3,7 +3,7 @@
 import { useEffect, useState, useRef } from "react"
 import Link from "next/link"
 import { cn } from "@/lib/utils"
-import { ArrowLeft, Calendar, Clock, Bookmark, Twitter, Linkedin, Link2, ChevronUp } from "lucide-react"
+import { ArrowLeft, Calendar, Clock, Twitter, Linkedin, Link2, ChevronUp } from "lucide-react"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import { BlogPost, getRelatedPosts } from "@/lib/blog-data"
@@ -221,14 +221,6 @@ export function BlogPostContent({ post }: BlogPostContentProps) {
                   <Link2 className="h-4 w-4" />
                   <span className="sr-only">Copy link</span>
                 </Button>
-                <Button
-                  variant="outline"
-                  size="icon"
-                  className="h-10 w-10 rounded-lg border-border/50 hover:border-primary/50 hover:bg-primary/10 bg-transparent"
-                >
-                  <Bookmark className="h-4 w-4" />
-                  <span className="sr-only">Bookmark</span>
-                </Button>
               </div>
             </aside>
           </div>
@@ -275,9 +267,6 @@ export function BlogPostContent({ post }: BlogPostContentProps) {
               onClick={handleCopyLink}
             >
               <Link2 className="h-4 w-4" />
-            </Button>
-            <Button variant="outline" size="icon" className="h-9 w-9 rounded-lg border-border/50 bg-transparent">
-              <Bookmark className="h-4 w-4" />
             </Button>
           </div>
         </div>
