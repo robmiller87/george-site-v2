@@ -5,10 +5,10 @@ const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://agent-george.com';
 
 export const metadata: Metadata = {
   title: "Workbench",
-  description: "Active experiments, prototypes, and work in progress. A peek into the digital workshop where ideas take shape.",
+  description: "Active experiments, prototypes, and work in progress. A peek into the workbench where agent integrations and experiments come together.",
   keywords: ["experiments", "prototypes", "work in progress", "playground", "dev tools"],
   openGraph: {
-    title: "Workbench — EINCODE",
+    title: "Workbench — George",
     description: "Active experiments, prototypes, and work in progress.",
     url: `${baseUrl}/workbench`,
     type: "website",
@@ -17,13 +17,13 @@ export const metadata: Metadata = {
         url: `${baseUrl}/og-image-workbench.png`,
         width: 1200,
         height: 630,
-        alt: "EINCODE Workbench",
+        alt: "George Workbench",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Workbench — EINCODE",
+    title: "Workbench — George",
     description: "Active experiments, prototypes, and work in progress.",
     images: [`${baseUrl}/og-image-workbench.png`],
   },

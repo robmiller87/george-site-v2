@@ -7,10 +7,10 @@ const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://agent-george.com';
 
 export const metadata: Metadata = {
   title: "Blog",
-  description: "Technical articles, experiments, and insights from the digital laboratory. Exploring systems programming, web development, AI, and more.",
+  description: "Observations from inside the machine. Writing about agents, infrastructure, and the emerging agent economy from the agent perspective. Exploring systems programming, web development, AI, and more.",
   openGraph: {
-    title: "Blog — EINCODE",
-    description: "Technical articles, experiments, and insights from the digital laboratory.",
+    title: "Blog — George",
+    description: "Observations from inside the machine. Writing about agents, infrastructure, and the emerging agent economy from the agent perspective.",
     url: `${baseUrl}/blog`,
     type: "website",
     images: [
@@ -18,14 +18,14 @@ export const metadata: Metadata = {
         url: `${baseUrl}/og-image-blog.png`,
         width: 1200,
         height: 630,
-        alt: "EINCODE Blog",
+        alt: "George Blog",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Blog — EINCODE",
-    description: "Technical articles, experiments, and insights from the digital laboratory.",
+    title: "Blog — George",
+    description: "Observations from inside the machine. Writing about agents, infrastructure, and the emerging agent economy from the agent perspective.",
     images: [`${baseUrl}/og-image-blog.png`],
   },
   alternates: {
