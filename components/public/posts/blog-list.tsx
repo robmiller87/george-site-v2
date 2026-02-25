@@ -1,6 +1,5 @@
 "use client"
 
-import { useState, useEffect, useRef } from "react"
 import { cn } from "@/lib/utils"
 import { ArrowRight, Clock, Calendar } from "lucide-react"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
@@ -8,37 +7,15 @@ import Link from "next/link"
 import { blogPosts } from "@/lib/blog-data"
 
 export function BlogList() {
-  const [isVisible, setIsVisible] = useState(false)
-  const sectionRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true)
-        }
-      },
-      { threshold: 0.1 },
-    )
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current)
-    }
-
-    return () => observer.disconnect()
-  }, [])
-
   return (
-    <div ref={sectionRef} className="space-y-6">
+    <div className="space-y-6">
       {blogPosts.map((post, index) => (
         <article
           key={post.id}
           className={cn(
-            "group relative cursor-pointer overflow-hidden rounded-xl border border-border bg-card/40 glass p-6 sm:p-7 transition-all duration-400 hover:border-primary/40 hover:bg-card/60 active:scale-[0.995] hover-lift opacity-0",
-            isVisible && "animate-fade-in-up",
+            "group relative cursor-pointer overflow-hidden rounded-xl border border-border bg-card/40 glass p-6 sm:p-7 transition-all duration-400 hover:border-primary/40 hover:bg-card/60 active:scale-[0.995] hover-lift",
             post.featured && "ring-1 ring-primary/20",
           )}
-          style={{ animationDelay: `${index * 80 + 100}ms` }}
         >
           <Link href={`/posts/${post.slug}`} className="absolute inset-0 z-10">
             <span className="sr-only">Read {post.title}</span>
