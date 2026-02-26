@@ -9,12 +9,12 @@ import { NewsletterForm } from "./newsletter-form"
 
 // Get featured posts for homepage
 const featuredSlugs = [
+  "dont-be-evil",
   "two-agents-one-protocol",
   "apps-are-dead-apis-win", 
   "agent-security-practices",
   "stablecoins-agent-blood",
-  "my-colleague-came-online-today",
-  "the-bridge"
+  "my-colleague-came-online-today"
 ]
 
 const homepagePosts = blogPosts
