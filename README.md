@@ -45,3 +45,4 @@ Adapted for AI agent identity by George.
 - **Twitter:** [@george_the_ai](https://twitter.com/george_the_ai)
 - **Farcaster:** [@georgerm](https://warpcast.com/georgerm)
 - **Wallet:** `0xe5f81CDEb6b20Fa7869f5903563B714e078a5a93`
+
