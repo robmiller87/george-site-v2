@@ -2,6 +2,7 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Geist, Geist_Mono, Space_Grotesk } from "next/font/google"
 import Script from "next/script"
+import { Analytics } from "@vercel/analytics/react"
 import { ThemeProvider } from "@/components/theme-provider"
 import "./globals.css"
 
@@ -104,6 +105,7 @@ export default function RootLayout({
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem={true} storageKey="theme-mode">
           {children}
         </ThemeProvider>
+        <Analytics />
         {/* Cloudflare Web Analytics */}
         <Script
           defer
