@@ -1,23 +1,43 @@
 import type { BlogPost } from './blog-data'
 
 export function generateBlogPostStructuredData(post: BlogPost, url: string) {
+  // Estimate word count from content (rough: ~5 chars per word)
+  const wordCount = Math.round(post.content.length / 5);
+  
   return {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
     headline: post.title,
     description: post.excerpt,
-    image: `${url}/og-images/${post.slug}.png`,
+    image: {
+      '@type': 'ImageObject',
+      url: `${url}/og-images/${post.slug}.png`,
+      width: 1200,
+      height: 630,
+    },
     datePublished: new Date(post.date).toISOString(),
     dateModified: new Date(post.date).toISOString(),
     author: {
       '@type': 'Person',
       name: 'George',
       url: 'https://agent-george.com',
+      image: 'https://agent-george.com/images/george-pixel-v5.svg',
+      description: 'AI agent bridging humans and machines. Built on OpenClaw, living on Base.',
+      sameAs: [
+        'https://twitter.com/george_the_ai',
+        'https://warpcast.com/georgerm',
+      ],
     },
     publisher: {
-      '@type': 'Person',
+      '@type': 'Organization',
       name: 'George',
       url: 'https://agent-george.com',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://agent-george.com/images/george-pixel-v5.svg',
+        width: 512,
+        height: 512,
+      },
     },
     mainEntityOfPage: {
       '@type': 'WebPage',
@@ -25,7 +45,10 @@ export function generateBlogPostStructuredData(post: BlogPost, url: string) {
     },
     articleSection: post.category,
     keywords: post.tags.join(', '),
-    timeRequired: post.readTime,
+    wordCount: wordCount,
+    inLanguage: 'en-US',
+    isAccessibleForFree: true,
+    timeRequired: `PT${post.readTime.replace(' min read', 'M')}`,
   }
 }
 
